@@ -1,43 +1,73 @@
-# Model Selection for Query Plan Reuse
+# ML-Assisted Query Plan Reuse
 
-Model comparison for a framework that reuses query execution plans in a
-multi-tiered storage system. The dataset lives in a separate repository and is
-pulled in at a pinned version.
+Dataset, generator and model comparison for a framework that reuses query
+execution plans in a multi-tiered persistent storage system. Queries are
+normalised into relational algebra, features are extracted from the normal form
+and from each candidate execution plan, and the plan of the nearest stored
+template is reused.
 
-## Setup
+The dataset covers 15 TPC-H queries over four storage tiers (HDD, SSD,
+high-speed SSD, NVMe): **180 query instances and 4836 candidate execution
+plans**.
+
+## Quick start
 
 ```bash
 pip install -r requirements.txt
-python src/fetch_data.py          # download the pinned dataset into data/
-python src/compare_models.py      # run every task, write results/
+python dataset/generate_dataset.py    # regenerate the CSVs
+python models/compare_models.py       # compare models, write results
 ```
 
-Before the first fetch, open `src/fetch_data.py` and set:
+The CSVs are committed, so the second command works on a fresh clone without
+the first.
+
+## Layout
+
+```
+dataset/
+    generate_dataset.py      the generator: queries, cost model, plan space
+    DATA_DICTIONARY.md       every column explained
+    data_dictionary.csv      the same, machine readable
+    query_features.csv       180 rows, one per query instance
+    plan_features.csv        4836 rows, one per candidate plan
+    template_dataset.csv     the two joined, ready for training
+    instance_provenance.csv  how each instance was generated, not features
+models/
+    compare_models.py        model comparison across three tasks
+    results/                 committed output, stamped with the commit
+notebooks/                   exploratory work
+```
+
+## Why one repository
+
+The dataset is generated rather than collected: changing a constant in
+`generate_dataset.py` changes every number in it, and therefore every result.
+Keeping the generator, the data and the results in one repository means they
+move together in one commit, and a result can always be reproduced by checking
+out the commit stamped in `models/results/model_comparison.csv`.
+
+## The dataset
+
+Features are split the way the paper splits them.
+
+**Query features** come from the normal form `N(Q)`, so every instance of a
+query has identical structural values — that is the property the framework
+depends on. They divide into structural features, read off the normalised
+expression, and statistical features, read from the catalogue.
+
+**Plan features** come from the physical plan and are not normalised, because
+the differences between candidates are exactly what the framework selects
+between. They cover operation counts, pipelining and parallelism, per-tier data
+volumes, and total data movement.
+
+`DATA_DICTIONARY.md` explains every column. Each carries one of four roles —
+`id`, `feature`, `target`, `metadata` — so feature selection can be done from
+the dictionary rather than a hand-maintained list:
 
 ```python
-DATASET_REPO = 'YOUR-USERNAME/plan-reuse-dataset'
-DATASET_TAG  = 'v1.0'
+dd = pd.read_csv('dataset/data_dictionary.csv')
+features = dd[dd.role == 'feature'].column.unique()
 ```
-
-While developing both repositories side by side, skip the download:
-
-```bash
-python src/fetch_data.py --local ../plan-reuse-dataset
-```
-
-## Why the dataset is pinned
-
-The dataset is generated, not collected: changing a constant in its generator
-changes every number in it. If this repository simply held a copy of the CSVs,
-there would be no way to tell months later which version produced the results
-in the paper.
-
-So `data/` is gitignored, `fetch_data.py` pulls a specific tag, and the tag is
-written to `data/VERSION.txt` and copied into every results file. Any number
-reported here can be traced to the exact data behind it.
-
-**When you bump `DATASET_TAG`, re-run every experiment.** Results from one tag
-are not comparable with results from another.
 
 ## Tasks
 
@@ -48,49 +78,53 @@ are not comparable with results from another.
 | `penalty` | `cost_ratio_to_best` | regression — cost penalty of reuse |
 
 ```bash
-python src/compare_models.py --task strategy
-python src/compare_models.py --folds 10
+python models/compare_models.py --task strategy
+python models/compare_models.py --folds 10
 ```
 
 ## Evaluation
 
 Every task uses `GroupKFold` on `query_group_id`. Instances of one group share
 a normal form and therefore have identical structural features; a random split
-would put near-identical rows on both sides and the scores would be inflated to
-the point of meaninglessness.
-
-Features come from the `role` column of `data_dictionary.csv` rather than a
-hard-coded list, so a column added to the dataset is picked up automatically and
-an id, target or metadata column can never leak in by accident.
-
-## Reading the results
+would put near-identical rows on both sides and inflate the scores to the point
+of meaninglessness.
 
 Two things in the output need care.
 
 **`optimal` is heavily imbalanced.** About 96% of candidates are not optimal, so
-a model that always answers "no" scores 0.96 accuracy and 0.00 F1. Accuracy is
-useless here — report F1, and treat the F1 of the majority baseline (zero) as
-the floor to beat.
+a model that always answers "no" scores 0.96 accuracy and 0.00 F1. Report F1 and
+treat the majority baseline as the floor.
 
-**`penalty` currently has negative R² for every model.** The target ranges from
-1.0 to roughly 37, with most mass near 1 and a long tail, so squared error is
-dominated by a few extreme candidates. Predicting `log(cost_ratio_to_best)` and
-reporting error in log space is the usual fix, and is worth trying before
-concluding the task is not learnable.
+**`penalty` currently has negative R² for every model.** The target runs from
+1.0 to about 37 with most mass near 1 and a long tail, so squared error is
+dominated by a few extreme candidates. Predicting the log of the ratio is the
+usual fix and is worth trying before concluding the task is not learnable.
 
-## Layout
+## Provenance
 
-```
-src/fetch_data.py       pull the dataset at a pinned version
-src/compare_models.py   run the tasks, write results/
-data/                   fetched dataset (gitignored)
-results/                model_comparison.csv, feature_list.txt (committed)
-notebooks/              exploratory work
-```
+The 180 instances come from 15 queries under three table-size settings and four
+storage placements — `baseline`, the deployed configuration, plus three variants
+standing for the same database after data migration. Those two axes are recorded
+in `instance_provenance.csv` but deliberately kept out of the feature tables: a
+query arriving at runtime carries no such label. Their effect reaches a model
+only through measurable columns such as `input_mb`, `tier_min`, `tier_max` and
+the per-tier volumes.
 
-`results/` is committed so the numbers in the paper are traceable without
-re-running anything.
+## What is measured and what is assumed
 
-## Related
+Tier read and write speeds, device counts, and the table sizes and home tiers
+come from the measured storage configuration. The queries are the TPC-H
+benchmark queries.
 
-Dataset and generator: `https://github.com/YOUR-USERNAME/plan-reuse-dataset`
+Tier capacities, the transient memory buffer, the random-access penalty for
+index probes, and predicate selectivities are estimates. All are named constants
+at the top of `dataset/generate_dataset.py`, and `DATA_DICTIONARY.md` lists them
+with the effect each has.
+
+## Citation
+
+<!-- Add your name and the paper reference here before publishing, e.g.
+
+    N. H. Aung, "<paper title>", ICECET 2027.
+
+-->
