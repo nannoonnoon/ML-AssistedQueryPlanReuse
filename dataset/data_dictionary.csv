@@ -1,0 +1,55 @@
+file,column,type,role,description
+query_features,instance_id,string,id,Identifier of one query instance.
+query_features,query_group_id,string,id,The query this instance belongs to. All instances of a group share a normal form. Use this to split train and test.
+query_features,n_terms,int,feature,Number of terms in the union of the normal form.
+query_features,n_rel,int,feature,Number of distinct base relations referenced by the normal form.
+query_features,n_joins,int,feature,Number of inner joins in the normal form.
+query_features,n_anti,int,feature,"Number of anti-joins and semi-joins, arising from EXCEPT, NOT EXISTS and NOT IN after rules t2 and the EXISTS translation."
+query_features,n_sel,int,feature,Number of selection predicates over base attributes.
+query_features,n_agg,int,feature,Number of aggregate functions computed.
+query_features,n_group,int,feature,Number of grouping attributes.
+query_features,n_sort,int,feature,Number of ordering attributes.
+query_features,depth,int,feature,"Maximum nesting depth of normalised subexpressions. 1 for a flat query, 2 when a join operand or an anti-join operand is itself a normal form."
+query_features,size_class_max,category,feature,"Size class of the largest input relation: small (<=200 MB), medium (<=2000 MB) or large. Encode before use."
+query_features,n_large,int,feature,Number of input relations over 2000 MB.
+query_features,n_small,int,feature,"Number of input relations at or under 200 MB. Small relations can be held in transient memory, which is what makes a nested-loop join viable."
+query_features,tier_min,int,feature,"Fastest tier holding any input relation, 0 to 3."
+query_features,tier_max,int,feature,"Slowest tier holding any input relation, 0 to 3."
+query_features,input_mb,float,feature,Total size of all input relations in MB.
+query_features,query_class,string,metadata,"Prose description of the query shape. For reading, not for training."
+plan_features,template_id,string,id,Identifier of one candidate plan.
+plan_features,instance_id,string,id,The query instance this candidate belongs to. Join key to query_features.
+plan_features,query_group_id,string,id,The query group. Use this to split train and test.
+plan_features,plan_strategy,string,metadata,"Prose description of the plan: target tier, partitioning, join algorithm, pipelining. For reading, not for training."
+plan_features,strategy_tag,int,metadata,"Numeric tag of the strategy that produced this candidate, 1 to 40."
+plan_features,n_ops,int,feature,Total number of operations in the plan.
+plan_features,n_joins,int,feature,Number of join operations.
+plan_features,n_sel,int,feature,Number of selection and subquery-block operations.
+plan_features,n_agg,int,feature,Number of aggregation operations.
+plan_features,n_sort,int,feature,"Number of sort operations, including the extra sorts a sort-merge join requires."
+plan_features,join_typ,int,feature,"Join algorithm: 0 nested loop, 1 hash, 2 sort merge, 3 index nested loop. Categorical, so one-hot encode for a linear model."
+plan_features,access,int,feature,"Access method: 0 sequential, 1 index. Categorical."
+plan_features,n_pipe,int,feature,"Number of operations fused into an in-memory pipeline, so their output is never written to storage."
+plan_features,pipe_max,int,feature,"Longest pipeline in the plan, in operations."
+plan_features,n_par,int,feature,Number of operations run on partitioned input.
+plan_features,par_max,int,feature,"Largest partition count actually achieved. Capped by the devices at the tier, so an operation on l3 cannot exceed 1."
+plan_features,d_0,float,feature,Volume read and written on tier l0 (HDD) in MB.
+plan_features,d_1,float,feature,Volume read and written on tier l1 (SSD) in MB.
+plan_features,d_2,float,feature,Volume read and written on tier l2 (high-speed SSD) in MB.
+plan_features,d_3,float,feature,Volume read and written on tier l3 (NVMe) in MB.
+plan_features,n_cross,int,feature,Number of operations whose read tier differs from its write tier.
+plan_features,n_push,int,feature,Number of operations whose output is written to a faster tier than the one it was read from.
+plan_features,tier_span,int,feature,Difference between the slowest and fastest tier the plan touches.
+plan_features,read_total,float,feature,"Total volume read from persistent storage in MB, including re-reads of intermediate results."
+plan_features,write_total,float,feature,Total volume written to persistent storage in MB. Lower than the sum of operation outputs when operations are pipelined.
+plan_features,inter_max,float,feature,Size of the largest intermediate result in MB. Decides whether an operation can be pipelined or placed on a small fast tier.
+plan_features,reduce,float,feature,"Final output size divided by total input size. A property of the query, so constant across the candidates of one instance."
+plan_features,cost,float,target,"Estimated execution cost from the analytical model, in time units. A regression target; exclude it when predicting which plan wins, or the task is trivial."
+plan_features,cost_ratio_to_best,float,target,This candidate cost divided by the best cost of its instance. 1.0 for the winner.
+plan_features,optimal,int,target,"1 if this candidate is the cheapest of its instance, else 0."
+plan_features,plan_template_id,string,target,template_id of the cheapest candidate of this instance. The label the framework retrieves.
+plan_features,best_strategy_tag,int,target,strategy_tag of the cheapest candidate. Multiclass target.
+instance_provenance,instance_id,string,id,Identifier of the query instance.
+instance_provenance,query_group_id,string,id,The query group.
+instance_provenance,scale_factor,category,metadata,"Which scale factor produced this instance: SF1, SF3 or SF10. NOT a feature: a query arriving at runtime carries no such label. Its effect reaches the model through input_mb and the size classes."
+instance_provenance,placement,category,metadata,"Which storage placement produced this instance. baseline is the deployed configuration; cold, hot and split are hypothetical variants standing for the same database after data migration. NOT a feature: its effect reaches the model through tier_min, tier_max and the per-tier volumes."

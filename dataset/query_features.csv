@@ -1,0 +1,181 @@
+instance_id,query_group_id,n_terms,n_rel,n_joins,n_anti,n_sel,n_agg,n_group,n_sort,depth,size_class_max,n_large,n_small,tier_min,tier_max,input_mb,query_class
+Q1_I01,Q1,1,1,0,0,1,8,2,2,1,large,1,0,1,1,6409.0,aggregate and group over one relation
+Q2_I01,Q2,1,5,4,0,2,1,0,4,2,medium,0,3,0,0,1412.0,five-way join with correlated aggregate subquery
+Q3_I01,Q3,1,3,2,0,3,1,3,2,1,large,1,0,0,1,8152.0,"three-way join, group, sort, limit"
+Q4_I01,Q4,1,2,0,0,2,1,1,1,2,large,1,0,1,1,7896.0,"semi-join from EXISTS, group, sort"
+Q5_I01,Q5,1,6,5,0,2,1,1,1,1,large,1,3,0,1,8169.0,"six-way join, group, sort"
+Q6_I01,Q6,1,1,0,0,1,1,0,0,1,large,1,0,1,1,6409.0,selective filter with one aggregate
+Q7_I01,Q7,1,5,4,0,2,1,3,3,2,large,1,2,0,1,8168.0,"derived table, five-way join, group, sort"
+Q8_I01,Q8,1,7,6,0,3,2,1,1,2,large,1,3,0,1,8465.0,"derived table, seven-way join, ratio aggregate"
+Q9_I01,Q9,1,6,5,0,1,1,2,2,2,large,1,2,0,1,9307.0,"derived table, six-way join, group, sort"
+Q10_I01,Q10,1,4,3,0,2,1,7,1,1,large,1,1,0,1,8153.0,"four-way join, wide grouping, sort, limit"
+Q11_I01,Q11,1,3,2,0,1,1,1,1,2,medium,0,2,0,0,1115.0,three-way join with HAVING against a scalar subquery
+Q12_I01,Q12,1,2,1,0,1,2,1,1,1,large,1,0,1,1,7896.0,two-way join with conditional aggregates
+Q13_I01,Q13,1,2,1,0,1,2,2,2,2,medium,0,0,0,1,1743.0,"outer join in a derived table, two levels of grouping"
+Q14_I01,Q14,1,2,1,0,1,2,0,0,1,large,1,0,0,1,6705.0,two-way join with a ratio aggregate
+Q15_I01,Q15,1,2,1,0,1,1,0,0,2,large,1,0,0,1,6705.0,two-way join with correlated aggregate subquery
+Q1_I02,Q1,1,1,0,0,1,8,2,2,1,large,1,0,0,0,6409.0,aggregate and group over one relation
+Q2_I02,Q2,1,5,4,0,2,1,0,4,2,medium,0,3,0,0,1412.0,five-way join with correlated aggregate subquery
+Q3_I02,Q3,1,3,2,0,3,1,3,2,1,large,1,0,0,0,8152.0,"three-way join, group, sort, limit"
+Q4_I02,Q4,1,2,0,0,2,1,1,1,2,large,1,0,0,0,7896.0,"semi-join from EXISTS, group, sort"
+Q5_I02,Q5,1,6,5,0,2,1,1,1,1,large,1,3,0,0,8169.0,"six-way join, group, sort"
+Q6_I02,Q6,1,1,0,0,1,1,0,0,1,large,1,0,0,0,6409.0,selective filter with one aggregate
+Q7_I02,Q7,1,5,4,0,2,1,3,3,2,large,1,2,0,0,8168.0,"derived table, five-way join, group, sort"
+Q8_I02,Q8,1,7,6,0,3,2,1,1,2,large,1,3,0,0,8465.0,"derived table, seven-way join, ratio aggregate"
+Q9_I02,Q9,1,6,5,0,1,1,2,2,2,large,1,2,0,0,9307.0,"derived table, six-way join, group, sort"
+Q10_I02,Q10,1,4,3,0,2,1,7,1,1,large,1,1,0,0,8153.0,"four-way join, wide grouping, sort, limit"
+Q11_I02,Q11,1,3,2,0,1,1,1,1,2,medium,0,2,0,0,1115.0,three-way join with HAVING against a scalar subquery
+Q12_I02,Q12,1,2,1,0,1,2,1,1,1,large,1,0,0,0,7896.0,two-way join with conditional aggregates
+Q13_I02,Q13,1,2,1,0,1,2,2,2,2,medium,0,0,0,0,1743.0,"outer join in a derived table, two levels of grouping"
+Q14_I02,Q14,1,2,1,0,1,2,0,0,1,large,1,0,0,0,6705.0,two-way join with a ratio aggregate
+Q15_I02,Q15,1,2,1,0,1,1,0,0,2,large,1,0,0,0,6705.0,two-way join with correlated aggregate subquery
+Q1_I03,Q1,1,1,0,0,1,8,2,2,1,large,1,0,2,2,6409.0,aggregate and group over one relation
+Q2_I03,Q2,1,5,4,0,2,1,0,4,2,medium,0,3,1,1,1412.0,five-way join with correlated aggregate subquery
+Q3_I03,Q3,1,3,2,0,3,1,3,2,1,large,1,0,1,2,8152.0,"three-way join, group, sort, limit"
+Q4_I03,Q4,1,2,0,0,2,1,1,1,2,large,1,0,2,2,7896.0,"semi-join from EXISTS, group, sort"
+Q5_I03,Q5,1,6,5,0,2,1,1,1,1,large,1,3,1,2,8169.0,"six-way join, group, sort"
+Q6_I03,Q6,1,1,0,0,1,1,0,0,1,large,1,0,2,2,6409.0,selective filter with one aggregate
+Q7_I03,Q7,1,5,4,0,2,1,3,3,2,large,1,2,1,2,8168.0,"derived table, five-way join, group, sort"
+Q8_I03,Q8,1,7,6,0,3,2,1,1,2,large,1,3,1,2,8465.0,"derived table, seven-way join, ratio aggregate"
+Q9_I03,Q9,1,6,5,0,1,1,2,2,2,large,1,2,1,2,9307.0,"derived table, six-way join, group, sort"
+Q10_I03,Q10,1,4,3,0,2,1,7,1,1,large,1,1,1,2,8153.0,"four-way join, wide grouping, sort, limit"
+Q11_I03,Q11,1,3,2,0,1,1,1,1,2,medium,0,2,1,1,1115.0,three-way join with HAVING against a scalar subquery
+Q12_I03,Q12,1,2,1,0,1,2,1,1,1,large,1,0,2,2,7896.0,two-way join with conditional aggregates
+Q13_I03,Q13,1,2,1,0,1,2,2,2,2,medium,0,0,1,2,1743.0,"outer join in a derived table, two levels of grouping"
+Q14_I03,Q14,1,2,1,0,1,2,0,0,1,large,1,0,1,2,6705.0,two-way join with a ratio aggregate
+Q15_I03,Q15,1,2,1,0,1,1,0,0,2,large,1,0,1,2,6705.0,two-way join with correlated aggregate subquery
+Q1_I04,Q1,1,1,0,0,1,8,2,2,1,large,1,0,0,0,6409.0,aggregate and group over one relation
+Q2_I04,Q2,1,5,4,0,2,1,0,4,2,medium,0,3,0,2,1412.0,five-way join with correlated aggregate subquery
+Q3_I04,Q3,1,3,2,0,3,1,3,2,1,large,1,0,0,2,8152.0,"three-way join, group, sort, limit"
+Q4_I04,Q4,1,2,0,0,2,1,1,1,2,large,1,0,0,0,7896.0,"semi-join from EXISTS, group, sort"
+Q5_I04,Q5,1,6,5,0,2,1,1,1,1,large,1,3,0,2,8169.0,"six-way join, group, sort"
+Q6_I04,Q6,1,1,0,0,1,1,0,0,1,large,1,0,0,0,6409.0,selective filter with one aggregate
+Q7_I04,Q7,1,5,4,0,2,1,3,3,2,large,1,2,0,2,8168.0,"derived table, five-way join, group, sort"
+Q8_I04,Q8,1,7,6,0,3,2,1,1,2,large,1,3,0,2,8465.0,"derived table, seven-way join, ratio aggregate"
+Q9_I04,Q9,1,6,5,0,1,1,2,2,2,large,1,2,0,2,9307.0,"derived table, six-way join, group, sort"
+Q10_I04,Q10,1,4,3,0,2,1,7,1,1,large,1,1,0,2,8153.0,"four-way join, wide grouping, sort, limit"
+Q11_I04,Q11,1,3,2,0,1,1,1,1,2,medium,0,2,0,2,1115.0,three-way join with HAVING against a scalar subquery
+Q12_I04,Q12,1,2,1,0,1,2,1,1,1,large,1,0,0,0,7896.0,two-way join with conditional aggregates
+Q13_I04,Q13,1,2,1,0,1,2,2,2,2,medium,0,0,0,2,1743.0,"outer join in a derived table, two levels of grouping"
+Q14_I04,Q14,1,2,1,0,1,2,0,0,1,large,1,0,0,2,6705.0,two-way join with a ratio aggregate
+Q15_I04,Q15,1,2,1,0,1,1,0,0,2,large,1,0,0,2,6705.0,two-way join with correlated aggregate subquery
+Q1_I05,Q1,1,1,0,0,1,8,2,2,1,large,1,0,1,1,19227.0,aggregate and group over one relation
+Q2_I05,Q2,1,5,4,0,2,1,0,4,2,large,1,3,0,0,4236.0,five-way join with correlated aggregate subquery
+Q3_I05,Q3,1,3,2,0,3,1,3,2,1,large,2,0,0,1,24456.0,"three-way join, group, sort, limit"
+Q4_I05,Q4,1,2,0,0,2,1,1,1,2,large,2,0,1,1,23688.0,"semi-join from EXISTS, group, sort"
+Q5_I05,Q5,1,6,5,0,2,1,1,1,1,large,2,3,0,1,24507.0,"six-way join, group, sort"
+Q6_I05,Q6,1,1,0,0,1,1,0,0,1,large,1,0,1,1,19227.0,selective filter with one aggregate
+Q7_I05,Q7,1,5,4,0,2,1,3,3,2,large,2,2,0,1,24504.0,"derived table, five-way join, group, sort"
+Q8_I05,Q8,1,7,6,0,3,2,1,1,2,large,2,3,0,1,25395.0,"derived table, seven-way join, ratio aggregate"
+Q9_I05,Q9,1,6,5,0,1,1,2,2,2,large,3,2,0,1,27921.0,"derived table, six-way join, group, sort"
+Q10_I05,Q10,1,4,3,0,2,1,7,1,1,large,2,1,0,1,24459.0,"four-way join, wide grouping, sort, limit"
+Q11_I05,Q11,1,3,2,0,1,1,1,1,2,large,1,2,0,0,3345.0,three-way join with HAVING against a scalar subquery
+Q12_I05,Q12,1,2,1,0,1,2,1,1,1,large,2,0,1,1,23688.0,two-way join with conditional aggregates
+Q13_I05,Q13,1,2,1,0,1,2,2,2,2,large,1,0,0,1,5229.0,"outer join in a derived table, two levels of grouping"
+Q14_I05,Q14,1,2,1,0,1,2,0,0,1,large,1,0,0,1,20115.0,two-way join with a ratio aggregate
+Q15_I05,Q15,1,2,1,0,1,1,0,0,2,large,1,0,0,1,20115.0,two-way join with correlated aggregate subquery
+Q1_I06,Q1,1,1,0,0,1,8,2,2,1,large,1,0,0,0,19227.0,aggregate and group over one relation
+Q2_I06,Q2,1,5,4,0,2,1,0,4,2,large,1,3,0,0,4236.0,five-way join with correlated aggregate subquery
+Q3_I06,Q3,1,3,2,0,3,1,3,2,1,large,2,0,0,0,24456.0,"three-way join, group, sort, limit"
+Q4_I06,Q4,1,2,0,0,2,1,1,1,2,large,2,0,0,0,23688.0,"semi-join from EXISTS, group, sort"
+Q5_I06,Q5,1,6,5,0,2,1,1,1,1,large,2,3,0,0,24507.0,"six-way join, group, sort"
+Q6_I06,Q6,1,1,0,0,1,1,0,0,1,large,1,0,0,0,19227.0,selective filter with one aggregate
+Q7_I06,Q7,1,5,4,0,2,1,3,3,2,large,2,2,0,0,24504.0,"derived table, five-way join, group, sort"
+Q8_I06,Q8,1,7,6,0,3,2,1,1,2,large,2,3,0,0,25395.0,"derived table, seven-way join, ratio aggregate"
+Q9_I06,Q9,1,6,5,0,1,1,2,2,2,large,3,2,0,0,27921.0,"derived table, six-way join, group, sort"
+Q10_I06,Q10,1,4,3,0,2,1,7,1,1,large,2,1,0,0,24459.0,"four-way join, wide grouping, sort, limit"
+Q11_I06,Q11,1,3,2,0,1,1,1,1,2,large,1,2,0,0,3345.0,three-way join with HAVING against a scalar subquery
+Q12_I06,Q12,1,2,1,0,1,2,1,1,1,large,2,0,0,0,23688.0,two-way join with conditional aggregates
+Q13_I06,Q13,1,2,1,0,1,2,2,2,2,large,1,0,0,0,5229.0,"outer join in a derived table, two levels of grouping"
+Q14_I06,Q14,1,2,1,0,1,2,0,0,1,large,1,0,0,0,20115.0,two-way join with a ratio aggregate
+Q15_I06,Q15,1,2,1,0,1,1,0,0,2,large,1,0,0,0,20115.0,two-way join with correlated aggregate subquery
+Q1_I07,Q1,1,1,0,0,1,8,2,2,1,large,1,0,2,2,19227.0,aggregate and group over one relation
+Q2_I07,Q2,1,5,4,0,2,1,0,4,2,large,1,3,1,1,4236.0,five-way join with correlated aggregate subquery
+Q3_I07,Q3,1,3,2,0,3,1,3,2,1,large,2,0,1,2,24456.0,"three-way join, group, sort, limit"
+Q4_I07,Q4,1,2,0,0,2,1,1,1,2,large,2,0,2,2,23688.0,"semi-join from EXISTS, group, sort"
+Q5_I07,Q5,1,6,5,0,2,1,1,1,1,large,2,3,1,2,24507.0,"six-way join, group, sort"
+Q6_I07,Q6,1,1,0,0,1,1,0,0,1,large,1,0,2,2,19227.0,selective filter with one aggregate
+Q7_I07,Q7,1,5,4,0,2,1,3,3,2,large,2,2,1,2,24504.0,"derived table, five-way join, group, sort"
+Q8_I07,Q8,1,7,6,0,3,2,1,1,2,large,2,3,1,2,25395.0,"derived table, seven-way join, ratio aggregate"
+Q9_I07,Q9,1,6,5,0,1,1,2,2,2,large,3,2,1,2,27921.0,"derived table, six-way join, group, sort"
+Q10_I07,Q10,1,4,3,0,2,1,7,1,1,large,2,1,1,2,24459.0,"four-way join, wide grouping, sort, limit"
+Q11_I07,Q11,1,3,2,0,1,1,1,1,2,large,1,2,1,1,3345.0,three-way join with HAVING against a scalar subquery
+Q12_I07,Q12,1,2,1,0,1,2,1,1,1,large,2,0,2,2,23688.0,two-way join with conditional aggregates
+Q13_I07,Q13,1,2,1,0,1,2,2,2,2,large,1,0,1,2,5229.0,"outer join in a derived table, two levels of grouping"
+Q14_I07,Q14,1,2,1,0,1,2,0,0,1,large,1,0,1,2,20115.0,two-way join with a ratio aggregate
+Q15_I07,Q15,1,2,1,0,1,1,0,0,2,large,1,0,1,2,20115.0,two-way join with correlated aggregate subquery
+Q1_I08,Q1,1,1,0,0,1,8,2,2,1,large,1,0,0,0,19227.0,aggregate and group over one relation
+Q2_I08,Q2,1,5,4,0,2,1,0,4,2,large,1,3,0,2,4236.0,five-way join with correlated aggregate subquery
+Q3_I08,Q3,1,3,2,0,3,1,3,2,1,large,2,0,0,2,24456.0,"three-way join, group, sort, limit"
+Q4_I08,Q4,1,2,0,0,2,1,1,1,2,large,2,0,0,0,23688.0,"semi-join from EXISTS, group, sort"
+Q5_I08,Q5,1,6,5,0,2,1,1,1,1,large,2,3,0,2,24507.0,"six-way join, group, sort"
+Q6_I08,Q6,1,1,0,0,1,1,0,0,1,large,1,0,0,0,19227.0,selective filter with one aggregate
+Q7_I08,Q7,1,5,4,0,2,1,3,3,2,large,2,2,0,2,24504.0,"derived table, five-way join, group, sort"
+Q8_I08,Q8,1,7,6,0,3,2,1,1,2,large,2,3,0,2,25395.0,"derived table, seven-way join, ratio aggregate"
+Q9_I08,Q9,1,6,5,0,1,1,2,2,2,large,3,2,0,2,27921.0,"derived table, six-way join, group, sort"
+Q10_I08,Q10,1,4,3,0,2,1,7,1,1,large,2,1,0,2,24459.0,"four-way join, wide grouping, sort, limit"
+Q11_I08,Q11,1,3,2,0,1,1,1,1,2,large,1,2,0,2,3345.0,three-way join with HAVING against a scalar subquery
+Q12_I08,Q12,1,2,1,0,1,2,1,1,1,large,2,0,0,0,23688.0,two-way join with conditional aggregates
+Q13_I08,Q13,1,2,1,0,1,2,2,2,2,large,1,0,0,2,5229.0,"outer join in a derived table, two levels of grouping"
+Q14_I08,Q14,1,2,1,0,1,2,0,0,1,large,1,0,0,2,20115.0,two-way join with a ratio aggregate
+Q15_I08,Q15,1,2,1,0,1,1,0,0,2,large,1,0,0,2,20115.0,two-way join with correlated aggregate subquery
+Q1_I09,Q1,1,1,0,0,1,8,2,2,1,large,1,0,1,1,64090.0,aggregate and group over one relation
+Q2_I09,Q2,1,5,4,0,2,1,0,4,2,large,2,3,0,0,14120.0,five-way join with correlated aggregate subquery
+Q3_I09,Q3,1,3,2,0,3,1,3,2,1,large,3,0,0,1,81520.0,"three-way join, group, sort, limit"
+Q4_I09,Q4,1,2,0,0,2,1,1,1,2,large,2,0,1,1,78960.0,"semi-join from EXISTS, group, sort"
+Q5_I09,Q5,1,6,5,0,2,1,1,1,1,large,3,3,0,1,81690.0,"six-way join, group, sort"
+Q6_I09,Q6,1,1,0,0,1,1,0,0,1,large,1,0,1,1,64090.0,selective filter with one aggregate
+Q7_I09,Q7,1,5,4,0,2,1,3,3,2,large,3,2,0,1,81680.0,"derived table, five-way join, group, sort"
+Q8_I09,Q8,1,7,6,0,3,2,1,1,2,large,4,3,0,1,84650.0,"derived table, seven-way join, ratio aggregate"
+Q9_I09,Q9,1,6,5,0,1,1,2,2,2,large,4,2,0,1,93070.0,"derived table, six-way join, group, sort"
+Q10_I09,Q10,1,4,3,0,2,1,7,1,1,large,3,1,0,1,81530.0,"four-way join, wide grouping, sort, limit"
+Q11_I09,Q11,1,3,2,0,1,1,1,1,2,large,1,2,0,0,11150.0,three-way join with HAVING against a scalar subquery
+Q12_I09,Q12,1,2,1,0,1,2,1,1,1,large,2,0,1,1,78960.0,two-way join with conditional aggregates
+Q13_I09,Q13,1,2,1,0,1,2,2,2,2,large,2,0,0,1,17430.0,"outer join in a derived table, two levels of grouping"
+Q14_I09,Q14,1,2,1,0,1,2,0,0,1,large,2,0,0,1,67050.0,two-way join with a ratio aggregate
+Q15_I09,Q15,1,2,1,0,1,1,0,0,2,large,2,0,0,1,67050.0,two-way join with correlated aggregate subquery
+Q1_I10,Q1,1,1,0,0,1,8,2,2,1,large,1,0,0,0,64090.0,aggregate and group over one relation
+Q2_I10,Q2,1,5,4,0,2,1,0,4,2,large,2,3,0,0,14120.0,five-way join with correlated aggregate subquery
+Q3_I10,Q3,1,3,2,0,3,1,3,2,1,large,3,0,0,0,81520.0,"three-way join, group, sort, limit"
+Q4_I10,Q4,1,2,0,0,2,1,1,1,2,large,2,0,0,0,78960.0,"semi-join from EXISTS, group, sort"
+Q5_I10,Q5,1,6,5,0,2,1,1,1,1,large,3,3,0,0,81690.0,"six-way join, group, sort"
+Q6_I10,Q6,1,1,0,0,1,1,0,0,1,large,1,0,0,0,64090.0,selective filter with one aggregate
+Q7_I10,Q7,1,5,4,0,2,1,3,3,2,large,3,2,0,0,81680.0,"derived table, five-way join, group, sort"
+Q8_I10,Q8,1,7,6,0,3,2,1,1,2,large,4,3,0,0,84650.0,"derived table, seven-way join, ratio aggregate"
+Q9_I10,Q9,1,6,5,0,1,1,2,2,2,large,4,2,0,0,93070.0,"derived table, six-way join, group, sort"
+Q10_I10,Q10,1,4,3,0,2,1,7,1,1,large,3,1,0,0,81530.0,"four-way join, wide grouping, sort, limit"
+Q11_I10,Q11,1,3,2,0,1,1,1,1,2,large,1,2,0,0,11150.0,three-way join with HAVING against a scalar subquery
+Q12_I10,Q12,1,2,1,0,1,2,1,1,1,large,2,0,0,0,78960.0,two-way join with conditional aggregates
+Q13_I10,Q13,1,2,1,0,1,2,2,2,2,large,2,0,0,0,17430.0,"outer join in a derived table, two levels of grouping"
+Q14_I10,Q14,1,2,1,0,1,2,0,0,1,large,2,0,0,0,67050.0,two-way join with a ratio aggregate
+Q15_I10,Q15,1,2,1,0,1,1,0,0,2,large,2,0,0,0,67050.0,two-way join with correlated aggregate subquery
+Q1_I11,Q1,1,1,0,0,1,8,2,2,1,large,1,0,2,2,64090.0,aggregate and group over one relation
+Q2_I11,Q2,1,5,4,0,2,1,0,4,2,large,2,3,1,1,14120.0,five-way join with correlated aggregate subquery
+Q3_I11,Q3,1,3,2,0,3,1,3,2,1,large,3,0,1,2,81520.0,"three-way join, group, sort, limit"
+Q4_I11,Q4,1,2,0,0,2,1,1,1,2,large,2,0,2,2,78960.0,"semi-join from EXISTS, group, sort"
+Q5_I11,Q5,1,6,5,0,2,1,1,1,1,large,3,3,1,2,81690.0,"six-way join, group, sort"
+Q6_I11,Q6,1,1,0,0,1,1,0,0,1,large,1,0,2,2,64090.0,selective filter with one aggregate
+Q7_I11,Q7,1,5,4,0,2,1,3,3,2,large,3,2,1,2,81680.0,"derived table, five-way join, group, sort"
+Q8_I11,Q8,1,7,6,0,3,2,1,1,2,large,4,3,1,2,84650.0,"derived table, seven-way join, ratio aggregate"
+Q9_I11,Q9,1,6,5,0,1,1,2,2,2,large,4,2,1,2,93070.0,"derived table, six-way join, group, sort"
+Q10_I11,Q10,1,4,3,0,2,1,7,1,1,large,3,1,1,2,81530.0,"four-way join, wide grouping, sort, limit"
+Q11_I11,Q11,1,3,2,0,1,1,1,1,2,large,1,2,1,1,11150.0,three-way join with HAVING against a scalar subquery
+Q12_I11,Q12,1,2,1,0,1,2,1,1,1,large,2,0,2,2,78960.0,two-way join with conditional aggregates
+Q13_I11,Q13,1,2,1,0,1,2,2,2,2,large,2,0,1,2,17430.0,"outer join in a derived table, two levels of grouping"
+Q14_I11,Q14,1,2,1,0,1,2,0,0,1,large,2,0,1,2,67050.0,two-way join with a ratio aggregate
+Q15_I11,Q15,1,2,1,0,1,1,0,0,2,large,2,0,1,2,67050.0,two-way join with correlated aggregate subquery
+Q1_I12,Q1,1,1,0,0,1,8,2,2,1,large,1,0,0,0,64090.0,aggregate and group over one relation
+Q2_I12,Q2,1,5,4,0,2,1,0,4,2,large,2,3,0,2,14120.0,five-way join with correlated aggregate subquery
+Q3_I12,Q3,1,3,2,0,3,1,3,2,1,large,3,0,0,2,81520.0,"three-way join, group, sort, limit"
+Q4_I12,Q4,1,2,0,0,2,1,1,1,2,large,2,0,0,0,78960.0,"semi-join from EXISTS, group, sort"
+Q5_I12,Q5,1,6,5,0,2,1,1,1,1,large,3,3,0,2,81690.0,"six-way join, group, sort"
+Q6_I12,Q6,1,1,0,0,1,1,0,0,1,large,1,0,0,0,64090.0,selective filter with one aggregate
+Q7_I12,Q7,1,5,4,0,2,1,3,3,2,large,3,2,0,2,81680.0,"derived table, five-way join, group, sort"
+Q8_I12,Q8,1,7,6,0,3,2,1,1,2,large,4,3,0,2,84650.0,"derived table, seven-way join, ratio aggregate"
+Q9_I12,Q9,1,6,5,0,1,1,2,2,2,large,4,2,0,2,93070.0,"derived table, six-way join, group, sort"
+Q10_I12,Q10,1,4,3,0,2,1,7,1,1,large,3,1,0,2,81530.0,"four-way join, wide grouping, sort, limit"
+Q11_I12,Q11,1,3,2,0,1,1,1,1,2,large,1,2,0,2,11150.0,three-way join with HAVING against a scalar subquery
+Q12_I12,Q12,1,2,1,0,1,2,1,1,1,large,2,0,0,0,78960.0,two-way join with conditional aggregates
+Q13_I12,Q13,1,2,1,0,1,2,2,2,2,large,2,0,0,2,17430.0,"outer join in a derived table, two levels of grouping"
+Q14_I12,Q14,1,2,1,0,1,2,0,0,1,large,2,0,0,2,67050.0,two-way join with a ratio aggregate
+Q15_I12,Q15,1,2,1,0,1,1,0,0,2,large,2,0,0,2,67050.0,two-way join with correlated aggregate subquery

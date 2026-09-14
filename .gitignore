@@ -1,0 +1,15 @@
+# Regenerable outputs. The CSVs are committed because they are the
+# deliverable; the spreadsheet is a convenience copy, so it is not.
+template_dataset.xlsx
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
