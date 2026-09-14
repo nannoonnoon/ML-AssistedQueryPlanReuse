@@ -35,20 +35,9 @@ dataset/
 models/
     compare_models.py        model comparison across three tasks
     results/                 committed output, stamped with the commit
-notebooks/                   exploratory work
 ```
 
-## Why one repository
-
-The dataset is generated rather than collected: changing a constant in
-`generate_dataset.py` changes every number in it, and therefore every result.
-Keeping the generator, the data and the results in one repository means they
-move together in one commit, and a result can always be reproduced by checking
-out the commit stamped in `models/results/model_comparison.csv`.
-
 ## The dataset
-
-Features are split the way the paper splits them.
 
 **Query features** come from the normal form `N(Q)`, so every instance of a
 query has identical structural values — that is the property the framework
@@ -82,24 +71,6 @@ python models/compare_models.py --task strategy
 python models/compare_models.py --folds 10
 ```
 
-## Evaluation
-
-Every task uses `GroupKFold` on `query_group_id`. Instances of one group share
-a normal form and therefore have identical structural features; a random split
-would put near-identical rows on both sides and inflate the scores to the point
-of meaninglessness.
-
-Two things in the output need care.
-
-**`optimal` is heavily imbalanced.** About 96% of candidates are not optimal, so
-a model that always answers "no" scores 0.96 accuracy and 0.00 F1. Report F1 and
-treat the majority baseline as the floor.
-
-**`penalty` currently has negative R² for every model.** The target runs from
-1.0 to about 37 with most mass near 1 and a long tail, so squared error is
-dominated by a few extreme candidates. Predicting the log of the ratio is the
-usual fix and is worth trying before concluding the task is not learnable.
-
 ## Provenance
 
 The 180 instances come from 15 queries under three table-size settings and four
@@ -121,10 +92,3 @@ index probes, and predicate selectivities are estimates. All are named constants
 at the top of `dataset/generate_dataset.py`, and `DATA_DICTIONARY.md` lists them
 with the effect each has.
 
-## Citation
-
-<!-- Add your name and the paper reference here before publishing, e.g.
-
-    N. H. Aung, "<paper title>", ICECET 2027.
-
--->
