@@ -2,10 +2,6 @@
 """
 Compare models on the plan-reuse dataset.
 
-    python models/compare_models.py                  # all tasks
-    python models/compare_models.py --task strategy  # one task
-    python models/compare_models.py --folds 10
-
 Tasks
 -----
     strategy   multiclass: which plan strategy wins for this query instance
@@ -57,12 +53,6 @@ def load():
 
 
 def dataset_stamp():
-    """Identify the data these results came from.
-
-    The dataset is generated, so what matters is which commit of the
-    generator produced it. In one repository that is just the current
-    commit, which makes every result reproducible by checking it out.
-    """
     import subprocess
     try:
         sha = subprocess.check_output(
@@ -77,12 +67,6 @@ def dataset_stamp():
 
 
 def feature_columns(df, dd):
-    """Columns marked 'feature' in the data dictionary, numeric only.
-
-    Taking the list from the dictionary rather than hard-coding it means a
-    column added to the dataset is picked up automatically, and a column
-    marked as an id, a target or metadata can never leak in by accident.
-    """
     named = set(dd.loc[dd.role == 'feature', 'column'])
     cols = []
     for c in df.columns:

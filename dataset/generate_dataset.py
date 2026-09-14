@@ -2,16 +2,6 @@
 """
 Generate the template dataset for the query-plan-reuse framework.
 
-Run
----
-    python generate_dataset.py                # write beside this script
-    python generate_dataset.py /path/to/dir   # write there
-    python generate_dataset.py --no-excel     # CSV only (no openpyxl needed)
-
-Needs Python 3 with pandas; openpyxl only for the .xlsx. No input files:
-every query, table size and device speed is a constant below. The generator
-is deterministic, so the same code always produces the same dataset.
-
 Outputs
 -------
     query_features.csv      one row per query instance     
@@ -42,13 +32,10 @@ import pandas as pd
 READ  = {0: 240.0, 1: 540.0, 2: 1000.0, 3: 5000.0}
 WRITE = {0: 230.0, 1: 530.0, 2: 950.0,  3: 4500.0}
 
-# Devices per tier. l3 is a single NVMe device, so an operation placed on
-# l3 cannot be partitioned across devices.
+# Devices per tier. l3 is a single NVMe device.
 NDEV = {0: 3, 1: 3, 2: 3, 3: 1}
 
 # --- assumptions, not measurements -----------------------------------
-# Usable capacity per tier in MB. Not measured; estimated. These decide
-# when a plan can place an intermediate result on the fast tiers.
 CAP = {0: 1e9, 1: 1e9, 2: 6000.0, 3: 2000.0}
 # Transient memory available for pipelining and for a hash build side.
 BUF = 1024.0
@@ -60,8 +47,8 @@ RAND = 3.0
 # 2. BASE TABLES  (size in MB, home tier of the deployed database)
 # =====================================================================
 TABLES = {
-    'LINEITEM': (6409, 1),   # 2563 + 2563 + 1283 across l1.d1..d3
-    'ORDERS':   (1487, 1),   # 992 + 495 across l1.d2, l1.d3
+    'LINEITEM': (6409, 1),   
+    'ORDERS':   (1487, 1),   
     'PARTSUPP': (1099, 0),
     'PART':     (296,  0),
     'CUSTOMER': (256,  0),
@@ -186,12 +173,6 @@ define('Q15', ['LINEITEM', 'PART'], [('PART', 0.0002)],
 # =====================================================================
 # 4. GENERATION AXES
 # =====================================================================
-# These multiply the number of query instances. They are NOT features:
-# a new query arriving at runtime does not carry a "scale factor" or a
-# "placement" label. Their effect reaches the model only through the
-# measurable columns (input_mb, tier_min, tier_max, n_large, n_small and
-# the per-tier volumes), which is what a real system would observe.
-# They are written to instance_provenance.csv for analysis only.
 SCALES = {'SF1': 1.0, 'SF3': 3.0, 'SF10': 10.0}
 
 PLACEMENTS = {
@@ -261,7 +242,6 @@ def after_filter(rel, spec):
 
 
 def logical_ops(spec):
-    """Operations of the normalised plan, in execution order."""
     ops = []
     for rel in sorted(spec['rels']):
         kind = 'sel' if any(r == rel for r, _ in spec['sel']) else 'scan'
@@ -291,7 +271,6 @@ def logical_ops(spec):
 
 
 def join_read_volume(alg, left, right, out):
-    """Read volume of a join, which is where the algorithms differ."""
     small, big = min(left, right), max(left, right)
     if alg == 'index_nested_loop':
         # only the matching inner rows, but read at random
@@ -458,8 +437,6 @@ def generate():
                              plan_strategy=v['name'], strategy_tag=v['tag'])
                     cands.append(f)
 
-                # a query with no join gives identical plans for every join
-                # algorithm; keep one representative per distinct vector
                 seen, uniq = set(), []
                 for c in cands:
                     key = tuple(c[k] for k in
